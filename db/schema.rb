@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20180330195906) do
 
   create_table "cats", force: :cascade do |t|
     t.string "name"
+    t.string "breed"
     t.text "bio"
     t.bigint "user_id"
     t.boolean "profile_public"
