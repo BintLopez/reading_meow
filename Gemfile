@@ -37,15 +37,18 @@ gem 'jbuilder', '~> 2.5'
 gem 'devise', '~> 4.2'
 
 group :development, :test do
+  # For debugging
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'pry'
+  
+  # RSpec & testing gems!
   gem 'rspec-rails', '~> 3.7'
-  gem "factory_bot_rails", "~> 4.0"
-end
-
-group :test do
   gem 'shoulda-matchers', '~> 3.1'
+
+  # For test data generation
+  gem "factory_bot_rails", "~> 4.0"
+  gem 'faker', :git => 'https://github.com/stympy/faker.git', :branch => 'master'
 end
 
 group :development do
