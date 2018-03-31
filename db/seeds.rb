@@ -2,14 +2,14 @@ require "factory_bot"
 require "faker"
 
 5.times do
-	user = FactoryBot.build(:user, email: Faker::Internet.email, password: 'password')
+	user = FactoryBot.build(:user)
 	user.save(validate: false)
 	FactoryBot.create(:cat, user: user)
 	FactoryBot.create(:contact, contactable: user)
 end
 
 5.times do
-	user = FactoryBot.build(:user, email: Faker::Internet.email, password: 'password')
+	user = FactoryBot.build(:user)
 	user.save(validate: false)
 	FactoryBot.create(:cat_reading_wrangler, user: user)
 	FactoryBot.create(:contact, contactable: user)
