@@ -31,9 +31,5 @@ RSpec.describe CatsController, type: :routing do
       expect(:patch => "/cats/1").to route_to("cats#update", :id => "1")
     end
 
-    it "routes to #destroy" do
-      expect(:delete => "/cats/1").to route_to("cats#destroy", :id => "1")
-    end
-
   end
 end
