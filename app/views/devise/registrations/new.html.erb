@@ -13,12 +13,11 @@
     <%= f.text_field :last_name, autofocus: true, autocomplete: "Last Name" %>
   </div>
 
-
   <div class="field">
-    <%= f.radio_button(:age, "child") %>
-    <%= f.label(:age_child, "I am younger than 21") %>
-    <%= f.radio_button(:age, "adult") %>
-    <%= f.label(:age_adult, "I'm over 21") %>
+    <%= f.radio_button(:account_type, "cat") %>
+    <%= f.label(:cat_account, "I'm a cat who wants some books!") %>
+    <%= f.radio_button(:account_type, "cat reading wrangler") %>
+    <%= f.label(:wrangler_account, "I have a library card and want to bring the gift of reading to cats!") %>
   </div>
 
   <div class="field">
