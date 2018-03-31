@@ -51,16 +51,6 @@ class CatsController < ApplicationController
     end
   end
 
-  # DELETE /cats/1
-  # DELETE /cats/1.json
-  def destroy
-    @cat.destroy
-    respond_to do |format|
-      format.html { redirect_to cats_url, notice: 'Cat was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_cat

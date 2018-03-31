@@ -28,13 +28,23 @@ RSpec.describe CatsController, type: :controller do
   # This should return the minimal set of attributes required to create a valid
   # Cat. As you add validations to Cat, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
-  }
+  let(:valid_attributes) do
+    {
+      name: "Sir Seabass",
+      bio: "Seabass is a proper kitty who loves to look out the window at birds.",
+      breed: "American Shorthair",
+      user_id: 1
+    }
+  end
 
-  let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
-  }
+  let(:invalid_attributes) do
+      {
+      name: "Fluffy",
+      bio: "Fluffy has the personality of a ball of fluff, much as her name would entail",
+      breed: 'vapid',
+      user_id: nil
+    }
+  end
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
@@ -120,21 +130,6 @@ RSpec.describe CatsController, type: :controller do
         put :update, params: {id: cat.to_param, cat: invalid_attributes}, session: valid_session
         expect(response).to be_success
       end
-    end
-  end
-
-  describe "DELETE #destroy" do
-    it "destroys the requested cat" do
-      cat = Cat.create! valid_attributes
-      expect {
-        delete :destroy, params: {id: cat.to_param}, session: valid_session
-      }.to change(Cat, :count).by(-1)
-    end
-
-    it "redirects to the cats list" do
-      cat = Cat.create! valid_attributes
-      delete :destroy, params: {id: cat.to_param}, session: valid_session
-      expect(response).to redirect_to(cats_url)
     end
   end
 
