@@ -1,10 +1,7 @@
 <ul class="nav navbar-nav">
   <li><%= link_to('<span class="glyphicon glyphicon-home"></span> Home'.html_safe, root_path) %></li>
   <% if current_user %>
-    <li><%= link_to('<span class="glyphicon glyphicon-lock"></span> Secret'.html_safe, secret_path) %></li>
-  <% else %>
-    <li><%= link_to('<span class="glyphicon glyphicon-lock"></span> Secret'.html_safe, secret_path) %></li>
-    <li><%= link_to('<span class="glyphicon glyphicon-user"></span> About'.html_safe, about_path) %></li>
+    <li><%= link_to('<span class="glyphicon glyphicon-lock"></span> Dashboard'.html_safe, dashboard_path) %></li>
   <% end %>
 </ul>
 
