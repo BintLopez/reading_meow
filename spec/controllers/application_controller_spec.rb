@@ -28,18 +28,16 @@ RSpec.describe ApplicationController, type: :controller do
       it "does not successfully hit the dashboard" do
         subject
         expect(response).not_to be_success
+        expect(response).to redirect_to(new_user_session_path)
       end
     end
 
     context "When a user is logged in" do
+      before { login_with }
+
       it "returns a success response" do
         subject
-        expect(response).to be_redirect
-
-        # Note both of the below work
-        expect(response).to redirect_to(new_user_session_path)
-        expect(response.redirect_url.end_with?(new_user_session_path)).to be true
-        expect(response.redirect_url).to include(new_user_session_path)
+        expect(response).to be_success
       end
     end
   end
