@@ -7,7 +7,7 @@ RSpec.describe ApplicationController, type: :routing do
       expect(:get => "/home").to route_to("application#home")
     end
 
-    it "routes to #secret" do
+    it "routes to #dashboard" do
       expect(:get => "/dashboard").to route_to("application#dashboard")
     end
 
