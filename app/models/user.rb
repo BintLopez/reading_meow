@@ -5,6 +5,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   has_one :cat_reading_wrangler
-  has_many :cats
+  has_one :cat
   has_many :contacts, as: :contactable
 end
