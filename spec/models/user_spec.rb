@@ -26,26 +26,34 @@ RSpec.describe User, type: :model do
 
   	context "When the user has no associated cat_reading_wrangler or cat record" do
   		context "When the user account_type is 'cat'" do
-  			it "returns cat" do
+  			before { user.account_type = 'cat' }
 
+  			it "returns cat" do
+  				expect(user.role).to eq("cat")
   			end
   		end
 
   		context "When the user account_type is 'wrangler'" do
-  			it "returns wrangler" do
+  			before { user.account_type = 'wrangler' }
 
+  			it "returns wrangler" do
+  				expect(user.role).to eq("wrangler")
   			end
   		end
 
   		context "And admin is true" do
-  			it "returns admin" do
+  			before { user.update_attributes(admin: true) }
 
+  			it "returns admin" do
+  				expect(user.role).to eq("admin")
   			end
   		end
 
   		context "And admin is false" do
-  			it "raises an error that the user role is unknown" do
+  			let(:error_message) { "User #{user.id} does not have a role!" }
 
+  			it "raises an error that the user role is unknown" do
+  				expect{ user.role }.to raise_error(NotImplementedError, error_message)
   			end
   		end
   	end
