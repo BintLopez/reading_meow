@@ -1,16 +1,41 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>ReadingMeow</title>
-    <%= csrf_meta_tags %>
+    <title>"Reading Meow"</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= csrf_meta_tags %>
+
   </head>
 
   <body>
-  	<p class="notice"><%= notice %></p>
-  	<p class="alert"><%= alert %></p>
-    <%= yield %>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed"
+                  data-toggle="collapse" data-target="#menu-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <%= link_to "Reading Meow", root_path, class: 'navbar-brand' %>
+        </div>
+
+        <div class="collapse navbar-collapse" id="menu-collapse">
+
+          <%= render 'layouts/navigation' %>
+
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <%= render 'layouts/alerts' %>
+
+      <%= yield %>
+    </div>
   </body>
 </html>

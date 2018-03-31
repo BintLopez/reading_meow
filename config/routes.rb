@@ -1,10 +1,21 @@
 Rails.application.routes.draw do
-  devise_for :users
+ #  devise_for :users
 	
-	root to: "home#index"
+	# root to: "home#index"
   
-  get "home/index"
-  match 'home', to: "home#index", via: :all
+ #  get "home/index"
+ #  match 'home', to: "home#index", via: :all
 
- 	resources :cats, except: [:destroy]
+ #  namespace :dashboard do
+ #  	resources :cats
+	# end
+	devise_for :users, path: '', path_names: { sign_in: 'login', sign_out: 'logout', sign_up: 'register', edit: 'settings' }
+
+	# For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+	root to: 'application#home'
+
+	get '/home', to: 'application#home', as: 'home'
+	get '/secret', to: 'application#secret', as: 'secret'
+	get '/about', to: 'application#about', as: 'about'
+	get '/contact', to: 'application#contact', as: 'contact'
 end
