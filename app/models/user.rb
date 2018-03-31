@@ -9,4 +9,8 @@ class User < ApplicationRecord
   has_many :contacts, as: :contactable
 
   attr_accessor :account_type
+
+  def role
+
+  end
 end
