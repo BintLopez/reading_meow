@@ -13,6 +13,14 @@
     <%= f.text_field :last_name, autofocus: true, autocomplete: "Last Name" %>
   </div>
 
+
+  <div class="field">
+    <%= f.radio_button(:age, "child") %>
+    <%= f.label(:age_child, "I am younger than 21") %>
+    <%= f.radio_button(:age, "adult") %>
+    <%= f.label(:age_adult, "I'm over 21") %>
+  </div>
+
   <div class="field">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>

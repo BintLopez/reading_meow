@@ -7,4 +7,6 @@ class User < ApplicationRecord
   has_one :cat_reading_wrangler
   has_one :cat
   has_many :contacts, as: :contactable
+
+  attr_accessor :account_type
 end

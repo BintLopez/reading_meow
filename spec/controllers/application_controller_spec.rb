@@ -37,6 +37,7 @@ RSpec.describe ApplicationController, type: :controller do
         expect(response).to be_redirect
 
         # Note both of the below work
+        expect(response).to redirect_to(new_user_session_path)
         expect(response.redirect_url.end_with?(new_user_session_path)).to be true
         expect(response.redirect_url).to include(new_user_session_path)
       end
