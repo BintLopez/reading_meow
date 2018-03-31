@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :library do
-    name "MyString"
-    website_url "MyString"
+    name Faker::LordOfTheRings.location
+    website_url Faker::Internet.url
   end
 end

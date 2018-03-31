@@ -1,7 +1,9 @@
 FactoryBot.define do
   factory :cat do
-    name "MyString"
-    bio "MyText"
+    name Faker::Cat.name
+    bio Faker::RickAndMorty.quote
     user nil
+    breed Faker::Cat.breed
+    profile_public false
   end
 end
