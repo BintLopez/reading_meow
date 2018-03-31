@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe "cats/index", type: :view do
   before(:each) do
     assign(:cats, [
-      Cat.create!(),
-      Cat.create!()
+      FactoryBot.create(:cat),
+      FactoryBot.create(:cat)
     ])
   end
 
