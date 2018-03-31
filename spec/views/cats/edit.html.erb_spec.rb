@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "cats/edit", type: :view do
   before(:each) do
-    @cat = assign(:cat, Cat.create!())
+    @cat = assign(:cat, FactoryBot.build_stubbed(:cat))
   end
 
   it "renders the edit cat form" do

@@ -6,4 +6,6 @@ Rails.application.routes.draw do
 
 	get '/home', to: 'application#home', as: 'home'
 	get '/dashboard', to: 'application#dashboard', as: 'dashboard'
+
+	resources :cats
 end
