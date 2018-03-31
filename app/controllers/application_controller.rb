@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!, except: [:home]
 
   def home
+    redirect_to dashboard_path if current_user
   end
 
   def dashboard
