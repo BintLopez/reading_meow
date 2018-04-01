@@ -1,4 +1,4 @@
-module Notifier
+module Notifiers
 	class Notify
 		def self.call(to:)
 			new(to: to)

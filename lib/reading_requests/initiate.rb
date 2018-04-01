@@ -1,9 +1,10 @@
 require 'reading_requests/eligibility'
+require 'notifiers/notify'
 
 module ReadingRequests
 	class Initiate
 		def self.call(cat: , request_data:{})
-			new(cat: cat, request_data: request_data)
+			new(cat: cat, request_data: request_data).call
 		end
 
 		def initialize(cat:, request_data:)
@@ -22,7 +23,7 @@ module ReadingRequests
 				request_data: request_data
 			)
 
-			Notifiers::Notify.call(to: available_wranglers)
+			::Notifiers::Notify.call(to: available_wranglers)
 		end
 
 		private
