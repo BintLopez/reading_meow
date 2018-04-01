@@ -19,4 +19,8 @@ class BookRequest < ApplicationRecord
 		regular: 5,
 		low: 10
 	}
+
+	def urgency_num_days
+		@urgency_num_days ||= URGENCY_TO_DAYS.fetch(request_data["urgency"].to_sym)
+	end
 end
