@@ -1,5 +1,4 @@
 require 'reading_requests/eligibility'
-require 'notifiers/notify'
 
 module ReadingRequests
 	class Initiate
@@ -23,10 +22,17 @@ module ReadingRequests
 				request_data: request_data
 			)
 
-			::Notifiers::Notify.call(to: available_wranglers)
+			binding.pry
+			alert_the_wranglers!
 		end
 
 		private
+
+		def alert_the_wranglers!
+			available_wranglers.each do |wrangler|
+				ReadingRequestMailer.new_request(wrangler.user).deliver_now
+			end
+		end
 
 		def available_wranglers
 			# this scope does not exist yet
