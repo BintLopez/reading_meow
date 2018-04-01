@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180401040547) do
+ActiveRecord::Schema.define(version: 20180401044809) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,17 @@ ActiveRecord::Schema.define(version: 20180401040547) do
     t.datetime "updated_at", null: false
     t.index ["cat_id"], name: "index_book_requests_on_cat_id"
     t.index ["cat_reading_wrangler_id"], name: "index_book_requests_on_cat_reading_wrangler_id"
+  end
+
+  create_table "books", force: :cascade do |t|
+    t.string "author"
+    t.string "title"
+    t.bigint "library_id"
+    t.string "status"
+    t.string "condition"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["library_id"], name: "index_books_on_library_id"
   end
 
   create_table "cat_reading_wranglers", force: :cascade do |t|
@@ -103,6 +114,7 @@ ActiveRecord::Schema.define(version: 20180401040547) do
 
   add_foreign_key "book_requests", "cat_reading_wranglers"
   add_foreign_key "book_requests", "cats"
+  add_foreign_key "books", "libraries"
   add_foreign_key "cat_reading_wranglers", "users"
   add_foreign_key "cats", "users"
   add_foreign_key "check_outs", "book_requests"
