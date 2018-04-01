@@ -2,10 +2,10 @@ require 'rails_helper'
 
 RSpec.describe "books/show", type: :view do
   before(:each) do
-    @book = assign(:book, Book.create!(
+    @book = assign(:book, instance_double(Book,
       :author => "Author",
       :title => "Title",
-      :library => nil,
+      :library => instance_double(Library),
       :status => "Status",
       :condition => "Condition"
     ))
