@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180401032343) do
+ActiveRecord::Schema.define(version: 20180401040547) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,17 @@ ActiveRecord::Schema.define(version: 20180401032343) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_cats_on_user_id"
+  end
+
+  create_table "check_outs", force: :cascade do |t|
+    t.bigint "book_request_id"
+    t.bigint "library_id"
+    t.date "return_due_date"
+    t.datetime "returned_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["book_request_id"], name: "index_check_outs_on_book_request_id"
+    t.index ["library_id"], name: "index_check_outs_on_library_id"
   end
 
   create_table "contacts", force: :cascade do |t|
@@ -94,4 +105,6 @@ ActiveRecord::Schema.define(version: 20180401032343) do
   add_foreign_key "book_requests", "cats"
   add_foreign_key "cat_reading_wranglers", "users"
   add_foreign_key "cats", "users"
+  add_foreign_key "check_outs", "book_requests"
+  add_foreign_key "check_outs", "libraries"
 end

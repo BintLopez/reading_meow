@@ -3,8 +3,8 @@ FactoryBot.define do
     status "accepted"
     accepted_at "2018-03-31 22:23:43"
     delivery_date "2018-03-31"
-    cat { build_stubbed(:cat) }
-    cat_reading_wrangler { build_stubbed(:cat_reading_wrangler) }
+    cat { create(:cat) }
+    cat_reading_wrangler { create(:cat_reading_wrangler) }
     request_data { { num_books: 3, genre: 'biography' } }
 
     trait :new_request do
