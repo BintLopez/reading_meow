@@ -11,6 +11,9 @@ RSpec.describe "Reading Requests End to End Integration Test" do
     }
   end
 
+  let(:wrangler_1) { FactoryBot.create(:cat_reading_wrangler) }
+  let(:wrangler_2) { FactoryBot.create(:cat_reading_wrangler) }
+
   it "happy path" do
     # Initiating a request
     #   * book request should be in initiated status
@@ -18,6 +21,8 @@ RSpec.describe "Reading Requests End to End Integration Test" do
     expect{ ReadingRequests::Initiate.call(cat: kitty, request_data: request_data) }
       .to change{ kitty.book_requests.count }
       .by(1) # initiating a reading request should only create one book request for cat
+      .and change{ ActionMailer::Base.deliveries.count }
+      .by(2) # the number of available wranglers
 
     # Accepting a request
     #   * a wrangler can accept an initiated request
