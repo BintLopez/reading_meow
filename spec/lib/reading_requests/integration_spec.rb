@@ -3,7 +3,6 @@ require 'reading_requests/initiate'
 
 RSpec.describe "Reading Requests End to End Integration Test" do
   let(:kitty) { FactoryBot.create(:cat) }
-
   let(:request_data) do
     {
       genre: "romance",
