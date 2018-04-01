@@ -17,7 +17,7 @@ module ReadingRequests
 		def call
 			return unless Eligibility.call(cat: cat)
 
-			request = cat.book_requests.create(
+			request = cat.book_requests.create!(
 				# book request statuses const does not exist
 				status: BookRequest::STATUSES[:initiated],
 				request_data: request_data
