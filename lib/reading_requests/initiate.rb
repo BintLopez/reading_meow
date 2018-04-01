@@ -17,10 +17,14 @@ module ReadingRequests
 		def call
 			return unless Eligibility.call(cat: cat)
 
+			binding.pry
+
 			request = cat.book_requests.create(
 				status: BookRequest::STATUSES[:initiated],
 				request_data: request_data
 			)
+
+			binding.pry
 
 			::Notifiers::Notify.call(to: available_wranglers)
 		end
