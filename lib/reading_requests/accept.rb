@@ -1,17 +1,34 @@
-gem 'verbalize'
-
 module ReadingRequests
 	class Accept
-		include Verbalize::Action
+		def self.call(initiated_request:, wrangler:)
+			new(initiated_request: initiated_request, wrangler: wrangler).call
+		end
 
-		input :initiated_request, :wrangler, 
+		def initialize(initiated_request:, wrangler:)
+			@initiated_request = initiated_request
+			@wrangler = wrangler
+		end
+
+		attr_reader :initiated_request, :wrangler
 
 		def call
-			# can the wrangler accept this request?
+			return unless request_already_accepted?
 
-			# update the delivery date -- eta
-			# update the status
-			# set the accepted_at timestamp
+			initiated_request.update!(
+				cat_reading_wrangler: wrangler,
+				accepted_at: Time.current,
+				delivery_date: expected_delivery_date
+			)
+		end
+
+		private
+
+		def request_already_accepted?
+			!!initiated_request.accepted_at
+		end
+
+		def expected_delivery_date
+			Date.current + initiated_request.urgency_num_days
 		end
 	end
 end

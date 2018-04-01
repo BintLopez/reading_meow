@@ -1,5 +1,6 @@
 require 'rails_helper'
 require 'reading_requests/initiate'
+require 'reading_requests/accept'
 
 RSpec.describe "Reading Requests End to End Integration Test" do
 	# Note -- we can use a lazy let here because we will
@@ -30,6 +31,12 @@ RSpec.describe "Reading Requests End to End Integration Test" do
 			.by(1) # initiating a reading request should only create one book request for cat
 			.and change{ ActionMailer::Base.deliveries.count }
 			.by(2) # the number of available wranglers
+
+		current_request = kitty.current_book_request
+
+		expect{ ReadingRequests::Accept.call(initiated_request: current_request, wrangler: wrangler_1) }
+			.to change{ wrangler_1.reload.book_requests.count }
+			.by(1)
 	end
 
 end

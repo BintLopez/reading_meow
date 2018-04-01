@@ -8,6 +8,15 @@ class BookRequest < ApplicationRecord
 		checked_out: 'checked_out',
 		delivered:   'delivered',
 		picked_up:   'picked_up',
-		returned:    'returned'
+		returned:    'returned',
+		canceled:    'canceled'
 	}.freeze
+
+	LIVE_STATUSES = STATUSES.except(:returned, :canceled).values.freeze
+
+	URGENCY_TO_DAYS = {
+		asap: 2,
+		regular: 5,
+		low: 10
+	}
 end
