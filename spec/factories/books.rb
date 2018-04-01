@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :book do
     author "MyString"
     title "MyString"
-    library nil
+    library { Library.new }
     status "MyString"
     condition "MyString"
   end
