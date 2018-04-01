@@ -10,10 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180331225606) do
+ActiveRecord::Schema.define(version: 20180401032343) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "book_requests", force: :cascade do |t|
+    t.string "status"
+    t.datetime "accepted_at"
+    t.date "delivery_date"
+    t.datetime "delivered_at"
+    t.datetime "picked_up_at"
+    t.jsonb "request_data"
+    t.bigint "cat_id"
+    t.bigint "cat_reading_wrangler_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cat_id"], name: "index_book_requests_on_cat_id"
+    t.index ["cat_reading_wrangler_id"], name: "index_book_requests_on_cat_reading_wrangler_id"
+  end
 
   create_table "cat_reading_wranglers", force: :cascade do |t|
     t.string "library_card_number"
@@ -75,6 +90,8 @@ ActiveRecord::Schema.define(version: 20180331225606) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "book_requests", "cat_reading_wranglers"
+  add_foreign_key "book_requests", "cats"
   add_foreign_key "cat_reading_wranglers", "users"
   add_foreign_key "cats", "users"
 end
