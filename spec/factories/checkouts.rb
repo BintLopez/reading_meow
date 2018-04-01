@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :check_out do
+  factory :checkout do
   	library { FactoryBot.create(:library) }
   	book_request { FactoryBot.create(:book_request) }
     return_due_date "2018-03-31"
