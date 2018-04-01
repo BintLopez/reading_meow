@@ -4,17 +4,28 @@ class CatsController < ApplicationController
   # GET /cats
   # GET /cats.json
   def index
-    @cats = Cat.all
+    @cats = if admin?
+      Cat.all
+    elsif current_user.cat_reading_wrangler?
+      #current_user.cat_reading_wrangler.cats
+    else
+      show
+    end
   end
 
   # GET /cats/1
   # GET /cats/1.json
   def show
+    redirect_to cats_path unless admin_user? || authorized_cat?
   end
 
   # GET /cats/new
   def new
-    @cat = Cat.new
+    if admin_user? || current_user.new_cat_account?
+      @cat = Cat.new
+    else
+      target = authorized_cat? ? edit_cat_path(@cat) : cats_path
+    end
   end
 
   # GET /cats/1/edit
@@ -65,6 +76,14 @@ class CatsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_cat
       @cat = Cat.find(params[:id])
+    end
+
+    def authorized_cat?
+      @cat == current_user.cat
+    end
+
+    def admin_user?
+      current_user.admin?
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -13,29 +13,39 @@ RSpec.describe CatsController, type: :controller do
     skip("Add a hash of attributes invalid for your model")
   }
 
+  let(:current_user) { FactoryBot.create(:user) }
+
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # CatsController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
+  let(:valid_session) { { current_user_id: current_user.id } }
+
+  before { login_with(current_user) }
 
   describe "GET #index" do
+    subject { get :index, params: {}, session: valid_session }
+
     context "When the user is an admin" do
+      before { current_user.update!(admin: true) }
+
       it "returns a success response" do
-        cat = Cat.create! valid_attributes
-        get :index, params: {}, session: valid_session
+        expect(Cat).to receive(:all)
         expect(response).to be_success
       end
     end
 
     context "When the user is a cat reading wrangler" do
       it "returns the cats the wrangler has/will get books to" do
-
+        skip("Implement me after you build out relationships between wranglers and cats")
       end
     end
 
     context "When the user is a cat" do
-      it "redirects to the cat's profile (show)" do
+      let(:current_user) { FactoryBot.create(:cat).user }
 
+      it "redirects to the cat's profile (show)" do
+        expect(Cat).not_to receive(:all)
+        expect(response).to redirect_to(cat_path(current_user.cat))
       end
     end
   end
