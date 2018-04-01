@@ -3,5 +3,6 @@ FactoryBot.define do
     library_card_number { Faker::Crypto.md5 } # generates a long string
     user                { FactoryBot.create(:user) }
     library             { FactoryBot.create(:library) }
+    available           true
   end
 end

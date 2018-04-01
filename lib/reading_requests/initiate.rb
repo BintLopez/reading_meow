@@ -1,4 +1,5 @@
 require 'reading_requests/eligibility'
+require 'notifiers/notify'
 
 module ReadingRequests
 	class Initiate
@@ -21,7 +22,7 @@ module ReadingRequests
 				request_data: request_data
 			)
 
-			Notifiers::Notify.call(to: available_wranglers)
+			::Notifiers::Notify.call(to: available_wranglers)
 		end
 
 		private
