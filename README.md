@@ -35,7 +35,7 @@ We will be checking out various commits/branches and working off those to progre
 This app does not 100% work, and in it's resting state has more than a few pended tests.
 * Fix the bugs in this repo!
 * Implement all the tests!
-* Let the test drive you to develop the best cat reading wrangling app Ruby, Rails, and RSpec have ever seen!
+* Let the tests drive you to develop the best cat reading wrangling app Ruby, Rails, and RSpec have ever seen!
 
 ## Welcome to Reading Meow
 
