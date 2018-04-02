@@ -1,6 +1,7 @@
 class BookRequest < ApplicationRecord
 	belongs_to :cat
 	belongs_to :cat_reading_wrangler, optional: true
+  has_one :checkout
 
 	STATUSES = {
 		initiated:   'initiated',
