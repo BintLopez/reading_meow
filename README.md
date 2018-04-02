@@ -1,7 +1,7 @@
 # Reading Meow!
-## The one and only app wrangling the gift of reading for a kitty near you!
+The one and only app wrangling the gift of reading for a kitty near you!
 
-(Also the official repo for this [Crash Course Intro to RSpec](https://bintlopez.gitbooks.io/rspec-wrangling/content/))
+Also the official repo for this [Crash Course Intro to RSpec](https://bintlopez.gitbooks.io/rspec-wrangling/content/)
 
 ## Project Setup
 
