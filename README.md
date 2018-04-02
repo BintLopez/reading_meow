@@ -1,24 +1,28 @@
-# README
+# Reading Meow!
+## The one and only app wrangling the gift of reading for a kitty near you!
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+(Also the official repo for this [Crash Course Intro to RSpec]())
 
-Things you may want to cover:
+## Project Setup
 
-* Ruby version
+### This project runs on...
+* Ruby version 2.4.2
+* Rails 5
 
-* System dependencies
+### To get up and running...
+* `git clone git@github.com:BintLopez/reading_meow.git`
+* `cd reading_meow`
+* `gem install bundler`
+* `bundle install`
+* `rake db:create db:migrate`
 
-* Configuration
+### To check your set up...
+Make sure you can run the following two commands.
+* `rails s`
+* `bundle exec rspec`
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+### New to Ruby or Rails?
+* guide to set up your development environment for a Rails project: http://installfest.railsbridge.org/installfest/installfest
+* intro to rails tutorials:
+  * http://installfest.railsbridge.org/intro-to-rails/
+  * https://www.railstutorial.org/book
