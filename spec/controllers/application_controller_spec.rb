@@ -10,10 +10,7 @@ RSpec.describe ApplicationController, type: :controller do
   end
 
   describe "GET #dashboard" do
-    it "returns a success response" do
-      get :dashboard
-      expect(response).to be_success
-    end
+    pending "Implement me!"
   end
 
 end
