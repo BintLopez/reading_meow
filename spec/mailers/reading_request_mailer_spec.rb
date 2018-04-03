@@ -1,5 +1,6 @@
 require "rails_helper"
 
 RSpec.describe ReadingRequestMailer, type: :mailer do
-  pending "add some examples to (or delete) #{__FILE__}"
+  pending "Hey you! Implement me!"
+  # https://relishapp.com/rspec/rspec-rails/docs/mailer-specs
 end

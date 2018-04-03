@@ -22,8 +22,6 @@ module ReadingRequests
 				request_data: request_data
 			)
 
-			binding.pry
-
 			alert_the_wranglers!
 		end
 
