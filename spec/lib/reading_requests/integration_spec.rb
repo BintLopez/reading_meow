@@ -2,33 +2,23 @@ require 'rails_helper'
 require 'reading_requests/initiate'
 
 RSpec.describe "Reading Requests End to End Integration Test" do
-  # The models/tables we need to tie together are
-  #   * BookRequest
-  #   * Checkout
-  #   * BookCheckout
-  #   * Book
-  #   * Library
-  #   * Cat
-  #   * CatReadingWrangler
+  let(:kitty) { FactoryBot.create(:cat) }
 
-  # A book request can be in the following statuses...
-  #   'initiated'
-  #   'accepted'
-  #   'checked_out'
-  #   'delivered'
-  #   'picked_up'
-  #   'returned'
-  #   'canceled'
-
-  # A book request is considered live if its in any status
-  # other than canceled or returned
+  let(:request_data) do
+    {
+      genre: "romance",
+      num_books: 5,
+      urgency: "asap"
+    }
+  end
 
   it "happy path" do
     # Initiating a request
-    #   * prevents creation of a book request for an ineligible cat
-    #   * creates a book request associated to the cat
     #   * book request should be in initiated status
     #   * notifies all available wranglers
+    expect{ ReadingRequests::Initiate.call(cat: kitty, request_data: request_data) }
+        .to change{ kitty.book_requests.count }
+        .by(1) # initiating a reading request should only create one book request for cat
 
     # Accepting a request
     #   * a wrangler can accept an initiated request
