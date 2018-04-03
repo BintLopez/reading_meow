@@ -2,11 +2,17 @@ module ReadingRequests
 	class Return
 		include Verbalize::Action
 
-		input :request
+		input :request, :books_condition_data
 		
 		def call
-			request.checkout.book_checkouts.each |bc|
-				bc.update!(returned_date: Date.current)
+			update_books_conditions!
+
+			request.checkout.book_checkouts.each do |bc|
+				bc.update!(
+					eff_date: Date.current,
+					action: 'return',
+					condition: bc.condition
+				)
 			end
 
 			request.update!(
@@ -17,5 +23,12 @@ module ReadingRequests
 				returned_at: Time.current
 			)
 		end
+
+		private
+
+		def update_books_conditions!
+			# implement me
+		end
+
 	end
 end

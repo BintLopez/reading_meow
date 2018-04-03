@@ -15,7 +15,9 @@ module ReadingRequest
 				BookCheckouts.create(
 					book: book,
 					checkout: checkout,
-					checked_out_date: Date.current
+					action: 'checkout'
+					eff_date: Date.current,
+					condition: book.condition
 				)
 			end
 		end

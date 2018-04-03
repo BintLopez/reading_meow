@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180401051907) do
+ActiveRecord::Schema.define(version: 20180403063657) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,10 +18,11 @@ ActiveRecord::Schema.define(version: 20180401051907) do
   create_table "book_checkouts", force: :cascade do |t|
     t.integer "book_id"
     t.integer "checkout_id"
-    t.date "checked_out_date"
-    t.date "returned_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "action"
+    t.string "condition"
+    t.date "eff_date"
   end
 
   create_table "book_requests", force: :cascade do |t|

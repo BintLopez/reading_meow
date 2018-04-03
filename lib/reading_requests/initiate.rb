@@ -28,7 +28,6 @@ module ReadingRequests
 		private
 
 		def available_wranglers
-			# this scope does not exist yet
 			@available_wranglers ||= CatReadingWrangler.available
 		end
 
