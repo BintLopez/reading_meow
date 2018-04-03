@@ -28,7 +28,7 @@ module ReadingRequests
 		private
 
 		def available_wranglers
-			@available_wranglers ||= CatReadingWrangler.available
+			@available_wranglers ||= CatReadingWrangler.where(available: true)
 		end
 
 	end
