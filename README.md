@@ -6,8 +6,7 @@ Also the official repo for this [Crash Course Intro to RSpec](https://bintlopez.
 ## Project Setup
 
 ### This project runs on...
-* Ruby version 2.4.2
-* Rails 5
+* Rails 5 (requires ruby 2.2.2+)
 
 ### To get up and running...
 * `git clone git@github.com:BintLopez/reading_meow.git`
