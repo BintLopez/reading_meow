@@ -9,7 +9,10 @@ RSpec.describe "books/index", type: :view do
       status: "Status",
       library: nil,
       condition: "Condition",
-      to_model: double(model_name: double(name: 'Book'))
+      to_model: double(
+        model_name: double(name: 'Book', route_key: 'book'),
+        persisted?: nil
+      )
     )
   end
 
