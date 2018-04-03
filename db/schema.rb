@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180401183506) do
+ActiveRecord::Schema.define(version: 20180403090242) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,10 +18,11 @@ ActiveRecord::Schema.define(version: 20180401183506) do
   create_table "book_checkouts", force: :cascade do |t|
     t.integer "book_id"
     t.integer "checkout_id"
-    t.date "checked_out_date"
-    t.date "returned_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "action"
+    t.string "condition"
+    t.date "eff_date"
   end
 
   create_table "book_requests", force: :cascade do |t|
@@ -56,6 +57,8 @@ ActiveRecord::Schema.define(version: 20180401183506) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "available"
+    t.bigint "library_id"
+    t.index ["library_id"], name: "index_cat_reading_wranglers_on_library_id"
     t.index ["user_id"], name: "index_cat_reading_wranglers_on_user_id"
   end
 
@@ -118,6 +121,7 @@ ActiveRecord::Schema.define(version: 20180401183506) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "admin", default: false
+    t.boolean "active"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -125,6 +129,7 @@ ActiveRecord::Schema.define(version: 20180401183506) do
   add_foreign_key "book_requests", "cat_reading_wranglers"
   add_foreign_key "book_requests", "cats"
   add_foreign_key "books", "libraries"
+  add_foreign_key "cat_reading_wranglers", "libraries"
   add_foreign_key "cat_reading_wranglers", "users"
   add_foreign_key "cats", "users"
   add_foreign_key "checkouts", "book_requests"

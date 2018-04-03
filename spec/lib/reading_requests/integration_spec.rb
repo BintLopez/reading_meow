@@ -32,31 +32,48 @@ RSpec.describe "Reading Requests End to End Integration Test" do
 
 	let!(:books) { [book_1, book_2, book_3] }
 
-	it "happy path" do
-		# Initiating a request creates a book request for the cat
-		# Sends a notification to the available cat reading wranglers
-		expect{ ReadingRequests::Initiate.call(cat: kitty, request_data: request_data) }
-			.to change{ kitty.book_requests.count }
-			.by(1) # initiating a reading request should only create one book request for cat
-			.and change{ ActionMailer::Base.deliveries.count }
-			.by(2) # the number of available wranglers
+  it "happy path" do
+    # Initiating a request
+    #   * book request should be in initiated status
+    #   * notifies all available wranglers
+    expect{ ReadingRequests::Initiate.call(cat: kitty, request_data: request_data) }
+      .to change{ kitty.book_requests.count }
+      .by(1) # initiating a reading request should only create one book request for cat
+      .and change{ ActionMailer::Base.deliveries.count }
+      .by(2) # the number of available wranglers
 
-		current_request = kitty.current_book_request
+    current_request = kitty.current_book_request
 
-		# Accepting a request associates the request to the wrangler
-		expect{ ReadingRequests::Accept.call(initiated_request: current_request, wrangler: wrangler_1) }
-			.to change{ wrangler_1.book_requests.count }
-			.by(1)
+    # Accepting a request associates the request to the wrangler
+    expect{ ReadingRequests::Accept.call(initiated_request: current_request, wrangler: wrangler_1) }
+      .to change{ wrangler_1.book_requests.count }
+      .by(1)
 
-		# Checking out books for the request creates a checkout
-		expect{ ReadingRequests::Checkout.call(request: current_request, books: books, library: library) }
-			.to change{ current_request.checkout }
-			.from(nil)
-			.to an_instance_of(Checkout)
+    # Checking out books for the request creates a checkout
+    expect{ ReadingRequests::Checkout.call(request: current_request, books: books, library: library) }
+      .to change{ current_request.checkout }
+      .from(nil)
+      .to an_instance_of(Checkout)
 
-		checkout = current_request.checkout
-		expect(checkout.books.count).to eq(3)
-		expect(checkout.books).to match_array(books)
-	end
+    # And creates the expected books
+    checkout = current_request.checkout
+    expect(checkout.books.count).to eq(3)
+    expect(checkout.books).to match_array(books)
 
+    # Cancel a request
+    #   * a request can be canceled up until it's checked out
+    #   * checkout is the point of no return!
+
+    # Delivery to the Cat
+    #   * logs the delivered at
+    #   * updates the status
+
+    # Pick up from the Cat
+    #   * logs the picked up at
+    #   * updates the status
+
+    # Return to the Library
+    #   * updates the checkout
+    #   * creates a book checkout to log condition and return date
+  end
 end

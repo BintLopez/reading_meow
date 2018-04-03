@@ -34,8 +34,7 @@ module ReadingRequests
 		end
 
 		def available_wranglers
-			# this scope does not exist yet
-			@available_wranglers ||= CatReadingWrangler.available
+			@available_wranglers ||= CatReadingWrangler.where(available: true)
 		end
 
 	end
