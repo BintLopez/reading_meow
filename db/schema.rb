@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180402200720) do
+ActiveRecord::Schema.define(version: 20180403090242) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "book_checkouts", force: :cascade do |t|
+    t.integer "book_id"
+    t.integer "checkout_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "action"
+    t.string "condition"
+    t.date "eff_date"
+  end
 
   create_table "book_requests", force: :cascade do |t|
     t.string "status"
@@ -46,6 +56,7 @@ ActiveRecord::Schema.define(version: 20180402200720) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "available"
     t.bigint "library_id"
     t.index ["library_id"], name: "index_cat_reading_wranglers_on_library_id"
     t.index ["user_id"], name: "index_cat_reading_wranglers_on_user_id"
@@ -62,15 +73,15 @@ ActiveRecord::Schema.define(version: 20180402200720) do
     t.index ["user_id"], name: "index_cats_on_user_id"
   end
 
-  create_table "check_outs", force: :cascade do |t|
+  create_table "checkouts", force: :cascade do |t|
     t.bigint "book_request_id"
     t.bigint "library_id"
     t.date "return_due_date"
     t.datetime "returned_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["book_request_id"], name: "index_check_outs_on_book_request_id"
-    t.index ["library_id"], name: "index_check_outs_on_library_id"
+    t.index ["book_request_id"], name: "index_checkouts_on_book_request_id"
+    t.index ["library_id"], name: "index_checkouts_on_library_id"
   end
 
   create_table "contacts", force: :cascade do |t|
@@ -110,6 +121,7 @@ ActiveRecord::Schema.define(version: 20180402200720) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "admin", default: false
+    t.boolean "active"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -120,6 +132,6 @@ ActiveRecord::Schema.define(version: 20180402200720) do
   add_foreign_key "cat_reading_wranglers", "libraries"
   add_foreign_key "cat_reading_wranglers", "users"
   add_foreign_key "cats", "users"
-  add_foreign_key "check_outs", "book_requests"
-  add_foreign_key "check_outs", "libraries"
+  add_foreign_key "checkouts", "book_requests"
+  add_foreign_key "checkouts", "libraries"
 end
