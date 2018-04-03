@@ -44,11 +44,10 @@ gem 'devise', '~> 4.2'
 gem 'verbalize'
 
 group :development, :test do
-  # For debugging
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  # Our brave brigade of debuggers!
+  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw] # from rails new
   gem 'pry'
-  
+
   # RSpec & testing gems!
   gem 'rspec-rails', '~> 3.7'
   gem 'shoulda-matchers', '~> 3.1'

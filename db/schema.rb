@@ -56,6 +56,8 @@ ActiveRecord::Schema.define(version: 20180403063657) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "library_id"
+    t.index ["library_id"], name: "index_cat_reading_wranglers_on_library_id"
     t.index ["user_id"], name: "index_cat_reading_wranglers_on_user_id"
   end
 
@@ -125,6 +127,7 @@ ActiveRecord::Schema.define(version: 20180403063657) do
   add_foreign_key "book_requests", "cat_reading_wranglers"
   add_foreign_key "book_requests", "cats"
   add_foreign_key "books", "libraries"
+  add_foreign_key "cat_reading_wranglers", "libraries"
   add_foreign_key "cat_reading_wranglers", "users"
   add_foreign_key "cats", "users"
   add_foreign_key "checkouts", "book_requests"
