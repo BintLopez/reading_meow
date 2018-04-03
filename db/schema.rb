@@ -15,6 +15,15 @@ ActiveRecord::Schema.define(version: 20180402200720) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "book_checkouts", force: :cascade do |t|
+    t.integer "book_id"
+    t.integer "checkout_id"
+    t.date "checked_out_date"
+    t.date "returned_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "book_requests", force: :cascade do |t|
     t.string "status"
     t.datetime "accepted_at"
@@ -62,15 +71,15 @@ ActiveRecord::Schema.define(version: 20180402200720) do
     t.index ["user_id"], name: "index_cats_on_user_id"
   end
 
-  create_table "check_outs", force: :cascade do |t|
+  create_table "checkouts", force: :cascade do |t|
     t.bigint "book_request_id"
     t.bigint "library_id"
     t.date "return_due_date"
     t.datetime "returned_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["book_request_id"], name: "index_check_outs_on_book_request_id"
-    t.index ["library_id"], name: "index_check_outs_on_library_id"
+    t.index ["book_request_id"], name: "index_checkouts_on_book_request_id"
+    t.index ["library_id"], name: "index_checkouts_on_library_id"
   end
 
   create_table "contacts", force: :cascade do |t|
@@ -120,6 +129,6 @@ ActiveRecord::Schema.define(version: 20180402200720) do
   add_foreign_key "cat_reading_wranglers", "libraries"
   add_foreign_key "cat_reading_wranglers", "users"
   add_foreign_key "cats", "users"
-  add_foreign_key "check_outs", "book_requests"
-  add_foreign_key "check_outs", "libraries"
+  add_foreign_key "checkouts", "book_requests"
+  add_foreign_key "checkouts", "libraries"
 end
