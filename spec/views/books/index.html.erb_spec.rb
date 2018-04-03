@@ -9,14 +9,16 @@ RSpec.describe "books/index", type: :view do
         title: "Title",
         status: "Status",
         library: nil,
-        condition: "Condition"
+        condition: "Condition",
+        to_model: nil
       ),
       instance_double(Book,
         author: "Author",
         title: "Title",
         status: "Status",
         library: nil,
-        condition: "Condition"
+        condition: "Condition",
+        to_model: nil
       ),
     ])
   end
