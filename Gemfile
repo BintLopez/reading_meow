@@ -39,6 +39,10 @@ gem 'bootstrap-sass', '3.3.7'
 # Devise for authentication
 gem 'devise', '~> 4.2'
 
+# Gem to help define action oriented classes
+# with built-in error handling!
+gem 'verbalize'
+
 group :development, :test do
   # For debugging
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
