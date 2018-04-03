@@ -2,25 +2,19 @@ require 'rails_helper'
 
 RSpec.describe "books/index", type: :view do
 
+  let(:book_double) do
+    instance_double(Book,
+      author: "Author",
+      title: "Title",
+      status: "Status",
+      library: nil,
+      condition: "Condition",
+      to_model: double(model_name: 'Book')
+    )
+  end
+
   before(:each) do
-    assign(:books, [
-      instance_double(Book,
-        author: "Author",
-        title: "Title",
-        status: "Status",
-        library: nil,
-        condition: "Condition",
-        to_model: nil
-      ),
-      instance_double(Book,
-        author: "Author",
-        title: "Title",
-        status: "Status",
-        library: nil,
-        condition: "Condition",
-        to_model: nil
-      ),
-    ])
+    assign(:books, [book_double, book_double])
   end
 
   it "renders a list of books" do
