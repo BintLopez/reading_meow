@@ -17,8 +17,8 @@ RSpec.describe "Reading Requests End to End Integration Test" do
     #   * book request should be in initiated status
     #   * notifies all available wranglers
     expect{ ReadingRequests::Initiate.call(cat: kitty, request_data: request_data) }
-        .to change{ kitty.book_requests.count }
-        .by(1) # initiating a reading request should only create one book request for cat
+      .to change{ kitty.book_requests.count }
+      .by(1) # initiating a reading request should only create one book request for cat
 
     # Accepting a request
     #   * a wrangler can accept an initiated request

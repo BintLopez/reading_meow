@@ -6,7 +6,7 @@ module ReadingRequests
 	class Accept
 		include Verbalize::Action
 
-		input :initiated_request, :wrangler, 
+		input :initiated_request, :wrangler
 
 		def call
 			# can the wrangler accept this request?
