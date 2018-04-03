@@ -10,9 +10,9 @@ RSpec.describe ApplicationController, type: :controller do
   end
 
   describe "GET #dashboard" do
-    it "returns a success response" do
+    it "does not return a success response" do
       get :dashboard
-      expect(response).to be_success
+      expect(response).not_to be_success
     end
   end
 
