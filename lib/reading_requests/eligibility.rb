@@ -6,7 +6,7 @@ module ReadingRequests
 				raise ArgumentError.new("Expecting a cat, got #{cat}.class")
 			end
 
-			new(cat: cat)
+			new(cat: cat).call
 		end
 
 		def initialize(cat:)

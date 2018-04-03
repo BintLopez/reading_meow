@@ -3,7 +3,7 @@ require 'reading_requests/eligibility'
 module ReadingRequests
 	class Initiate
 		def self.call(cat: , request_data:{})
-			new(cat: cat, request_data: request_data)
+			new(cat: cat, request_data: request_data).call
 		end
 
 		def initialize(cat:, request_data:)
@@ -17,7 +17,6 @@ module ReadingRequests
 			return unless Eligibility.call(cat: cat)
 
 			request = cat.book_requests.create(
-				# book request statuses const does not exist
 				status: BookRequest::STATUSES[:initiated],
 				request_data: request_data
 			)
