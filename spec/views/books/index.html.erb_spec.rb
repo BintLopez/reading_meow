@@ -1,21 +1,23 @@
 require 'rails_helper'
 
 RSpec.describe "books/index", type: :view do
-  let(:library) { FactoryBot.create(:library) }
-  let!(:passing_attributes) do
-    {
-      author:    "Author",
-      title:     "Title",
-      library:   library,
-      status:    "Status",
-      condition: "Condition"
-    }
-  end
 
   before(:each) do
     assign(:books, [
-      FactoryBot.create(:book, passing_attributes),
-      FactoryBot.create(:book, passing_attributes)
+      instance_double(Book,
+        author: "Author",
+        title: "Title",
+        status: "Status",
+        library: nil,
+        condition: "Condition"
+      ),
+      instance_double(Book,
+        author: "Author",
+        title: "Title",
+        status: "Status",
+        library: nil,
+        condition: "Condition"
+      ),
     ])
   end
 
