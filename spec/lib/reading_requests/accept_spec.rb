@@ -2,13 +2,6 @@ require 'rails_helper'
 require 'reading_requests/initiate'
 
 RSpec.describe ReadingRequests::Initiate do
-  # Accepting a request
-  #   * a wrangler can accept an initiated request
-  #   * accepting a request logs the accepted_at date
-  #   * and upates the status to accepted
-  #   * updates the book request delivery date
-  #   * notifies the cat of the delivery date
-
   let(:cat) do
     instance_double(Cat,
       book_requests: double(create!: true)
