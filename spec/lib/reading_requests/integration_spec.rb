@@ -60,6 +60,12 @@ RSpec.describe "Reading Requests End to End Integration Test" do
     expect(checkout.books.count).to eq(3)
     expect(checkout.books).to match_array(books)
 
+    # TODO
+    # 1. Write out the rest of these integration tests
+    #    Did you find any bugs or unexpected behavior?
+    # 2. Add duplicate calls to the same class to your test and
+    #    write a failing test for idempotency.
+
     # Cancel a request
     #   * a request can be canceled up until it's checked out
     #   * checkout is the point of no return!

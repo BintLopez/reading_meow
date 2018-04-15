@@ -1,7 +1,9 @@
 # TODO -- convert this to a verbalize interactor
 # gem 'verbalize'
 # Read more about the Verbalize gem here:  https://github.com/taylorzr/verbalize
-# It's 
+# It's a great gem to make writing single purpose
+# classes with a single call method quick and easy.
+# It also has some cool built in error handling ;)
 
 module ReadingRequests
   class Accept
