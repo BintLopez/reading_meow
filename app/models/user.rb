@@ -28,6 +28,11 @@ class User < ApplicationRecord
   	end
   end
 
+  def can_cancel?
+    return true unless !!cat
+    cat.current_book_request&.cancelable?
+  end
+
   def new_cat_account?
   	new_account? && account_type == VALID_ROLES[:cat]
   end

@@ -1,64 +1,52 @@
 require 'rails_helper'
-require 'reading_requests/initiate'
+require 'reading_requests/accept'
 
-RSpec.describe ReadingRequests::Initiate do
-  let(:cat) do
-    instance_double(Cat,
-      book_requests: double(create!: true)
+RSpec.describe ReadingRequests::Accept do
+  let(:initiated_request) do
+    instance_double(BookRequest,
+      accepted_at: accepted_timestamp,
+      urgency_num_days: 5
     )
   end
 
-  let(:request_data) { { some: 'data' } }
-
-  let(:wrangler) do
-    instance_double(CatReadingWrangler,
-      user: instance_double(User)
-    )
-  end
+  let(:wrangler)   { instance_double(CatReadingWrangler) }
+  let(:today)      { Date.new(2018,11,21) }
+  let!(:right_now) { Time.now }
 
   before do
-    allow(ReadingRequests::Eligibility)
-      .to receive(:call)
-      .with(cat: cat)
-      .and_return(eligiboolean)
-    allow(CatReadingWrangler)
-      .to receive(:where)
-      .with(available: true)
-      .and_return([wrangler])
+    allow(Date).to receive(:current).and_return(today)
+    allow(Time).to receive(:current).and_return(right_now)
   end
 
   subject do
-    described_class.call(cat: cat, request_data: request_data)
+    described_class.call(
+      initiated_request: initiated_request,
+      wrangler: wrangler
+    )
   end
 
-  context 'When the cat is eligible' do
-    let(:eligiboolean) { true }
+  context 'When the request has already been accepted' do
+    let(:accepted_timestamp) { Time.now - 300 }
+  
+    it 'does not accept the request' do
+      expect(initiated_request).not_to receive(:update!)
+      subject
+    end
+  end
 
-    it "creates a book request and alerts the wranglers" do
-      expect(cat.book_requests)
-        .to receive(:create!)
+  context 'When the request has not yet been accepted' do
+    let(:accepted_timestamp) { nil }
+
+    it 'updates the initiated request' do
+      expect(initiated_request)
+        .to receive(:update!)
         .with(
-          status: BookRequest::STATUSES[:initiated],
-          request_data: request_data
+          cat_reading_wrangler: wrangler,
+          accepted_at: right_now,
+          delivery_date: today + 5
         )
-
-      expect(ReadingRequestMailer)
-        .to receive(:new_request)
-        .with(wrangler.user)
-        .and_return(double(deliver_now: nil))
-
       subject
     end
   end
 
-  context 'When the cat is NOT eligible' do
-    let(:eligiboolean) { false }
-
-    it "does NOT create a book request; notifies NOBODY" do
-      expect(cat.book_requests).not_to receive(:create!)
-      expect(ReadingRequestMailer).not_to receive(:new_request)
-
-      subject
-    end
-  end
 end

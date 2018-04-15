@@ -7,11 +7,11 @@ module ReadingRequests
 		def call
 			update_books_conditions!
 
-			request.checkout.book_checkouts.each do |bc|
+			checkout.book_checkouts.each do |bc|
 				bc.update!(
 					eff_date: Date.current,
 					action: 'return',
-					condition: bc.condition
+					condition: bc.book.condition
 				)
 			end
 
@@ -19,7 +19,7 @@ module ReadingRequests
 				status: "returned",
 			)
 
-			request.checkout.update!(
+			checkout.update!(
 				returned_at: Time.current
 			)
 		end
@@ -27,8 +27,16 @@ module ReadingRequests
 		private
 
 		def update_books_conditions!
-			# implement me
+			checkout.books.each do |book|
+				new_condition = books_condition_data[book.id]
+				next unless new_condition
+				book.update!(condition: new_condition)
+			end
 		end
+
+		def checkout
+      @checkout ||= request.checkout
+    end
 
 	end
 end

@@ -21,6 +21,10 @@ class BookRequest < ApplicationRecord
 		low: 10
 	}
 
+  def cancelable?
+    Date.current < delivery_date
+  end
+
 	def urgency_num_days
 		@urgency_num_days ||= URGENCY_TO_DAYS.fetch(request_data["urgency"].to_sym)
 	end

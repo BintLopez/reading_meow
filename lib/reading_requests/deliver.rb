@@ -1,4 +1,4 @@
-module ReadingRequest
+module ReadingRequests
 	class Deliver
 		include Verbalize::Action
 
