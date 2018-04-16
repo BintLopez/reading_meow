@@ -12,15 +12,12 @@
 
 ActiveRecord::Schema.define(version: 20180402200720) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "cat_reading_wranglers", force: :cascade do |t|
     t.string "library_card_number"
-    t.bigint "user_id"
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "library_id"
+    t.integer "library_id"
     t.index ["library_id"], name: "index_cat_reading_wranglers_on_library_id"
     t.index ["user_id"], name: "index_cat_reading_wranglers_on_user_id"
   end
@@ -29,7 +26,7 @@ ActiveRecord::Schema.define(version: 20180402200720) do
     t.string "name"
     t.string "breed"
     t.text "bio"
-    t.bigint "user_id"
+    t.integer "user_id"
     t.boolean "profile_public"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -44,7 +41,7 @@ ActiveRecord::Schema.define(version: 20180402200720) do
     t.string "state"
     t.string "zip_code"
     t.string "contactable_type"
-    t.bigint "contactable_id"
+    t.integer "contactable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["contactable_type", "contactable_id"], name: "index_contacts_on_contactable_type_and_contactable_id"
@@ -66,8 +63,8 @@ ActiveRecord::Schema.define(version: 20180402200720) do
     t.integer "sign_in_count", default: 0, null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.inet "current_sign_in_ip"
-    t.inet "last_sign_in_ip"
+    t.string "current_sign_in_ip"
+    t.string "last_sign_in_ip"
     t.string "first_name"
     t.string "last_name"
     t.datetime "created_at", null: false
@@ -76,7 +73,4 @@ ActiveRecord::Schema.define(version: 20180402200720) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "cat_reading_wranglers", "libraries"
-  add_foreign_key "cat_reading_wranglers", "users"
-  add_foreign_key "cats", "users"
 end
