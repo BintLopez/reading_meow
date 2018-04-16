@@ -9,4 +9,12 @@ RSpec.describe BookRequest, type: :model do
   	expect(book_request).to be_persisted
   	expect(book_request).to be_valid
   end
+
+  describe 'request_data setter' do
+    # TODO -- test me please!
+  end
+
+  describe 'request_data getter' do
+    # TODO -- test me please!
+  end
 end
