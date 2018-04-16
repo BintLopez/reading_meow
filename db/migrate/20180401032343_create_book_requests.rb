@@ -6,7 +6,7 @@ class CreateBookRequests < ActiveRecord::Migration[5.1]
       t.date :delivery_date
       t.timestamp :delivered_at
       t.timestamp :picked_up_at
-      t.jsonb :request_data
+      t.string :request_data
       t.references :cat, foreign_key: true, index: true
       t.references :cat_reading_wrangler, foreign_key: true, index: true
 
