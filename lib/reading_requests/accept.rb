@@ -1,19 +1,39 @@
-gem 'verbalize'
+# TODO -- convert this to a verbalize interactor
+# gem 'verbalize'
 # Read more about the Verbalize gem here:  https://github.com/taylorzr/verbalize
 # It's 
 
 module ReadingRequests
-	class Accept
-		include Verbalize::Action
+  class Accept
+    def self.call(initiated_request:, wrangler:)
+      new(initiated_request: initiated_request, wrangler: wrangler).call
+    end
 
-		input :initiated_request, :wrangler
+    def initialize(initiated_request:, wrangler:)
+      @initiated_request = initiated_request
+      @wrangler = wrangler
+    end
 
-		def call
-			# can the wrangler accept this request?
+    attr_reader :initiated_request, :wrangler
 
-			# update the delivery date -- eta
-			# update the status
-			# set the accepted_at timestamp
-		end
-	end
+    def call
+      return if request_already_accepted?
+
+      initiated_request.update!(
+        cat_reading_wrangler: wrangler,
+        accepted_at: Time.current,
+        delivery_date: expected_delivery_date
+      )
+    end
+
+    private
+
+    def request_already_accepted?
+      !!initiated_request.accepted_at
+    end
+
+    def expected_delivery_date
+      Date.current + initiated_request.urgency_num_days
+    end
+  end
 end
