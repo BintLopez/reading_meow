@@ -16,6 +16,10 @@
 /node_modules
 /yarn-error.log
 
+# Ignore the default SQLite database.
+/db/*.sqlite3
+/db/*.sqlite3-journal
+
 .byebug_history
 
 .DS_Store
