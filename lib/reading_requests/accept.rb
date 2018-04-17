@@ -1,7 +1,6 @@
 # TODO -- convert this to a verbalize interactor
 # gem 'verbalize'
 # Read more about the Verbalize gem here:  https://github.com/taylorzr/verbalize
-# It's 
 
 module ReadingRequests
   class Accept
