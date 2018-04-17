@@ -1,7 +1,6 @@
 require "rails_helper"
 
 RSpec.describe ReadingRequestMailer, type: :mailer do
-  # TODO
-  pending "Hey you! Implement me!"
+  pending "TODO for you -- Add some mailer tests!"
   # https://relishapp.com/rspec/rspec-rails/docs/mailer-specs
 end
