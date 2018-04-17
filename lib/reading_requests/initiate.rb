@@ -1,35 +1,40 @@
 require 'reading_requests/eligibility'
-require 'notifiers/notify'
 
 module ReadingRequests
-	class Initiate
-		def self.call(cat: , request_data:{})
-			new(cat: cat, request_data: request_data).call
-		end
+  class Initiate
+    def self.call(cat: , request_data:{})
+	    new(cat: cat, request_data: request_data).call
+    end
 
-		def initialize(cat:, request_data:)
-			@cat = cat
-			@request_data = request_data
-		end
+    def initialize(cat:, request_data:)
+      @cat = cat
+      @request_data = request_data
+    end
 
-		attr_reader :cat, :request_data
+    attr_reader :cat, :request_data
 
-		def call
-			return unless Eligibility.call(cat: cat)
+    def call
+      return unless Eligibility.call(cat: cat)
 
-			request = cat.book_requests.create(
-				status: BookRequest::STATUSES[:initiated],
-				request_data: request_data
-			)
+      request = cat.book_requests.create(
+        status: BookRequest::STATUSES[:initiated],
+        request_data: request_data
+      )
 
-			::Notifiers::Notify.call(to: available_wranglers)
-		end
+      alert_the_wranglers!
+    end
 
-		private
+    private
 
-		def available_wranglers
-			@available_wranglers ||= CatReadingWrangler.where(available: true)
-		end
+    def alert_the_wranglers!
+      available_wranglers.each do |wrangler|
+        ReadingRequestMailer.new_request(wrangler.user).deliver_now
+      end
+    end
 
-	end
+    def available_wranglers
+      @available_wranglers ||= CatReadingWrangler.where(available: true)
+    end
+
+  end
 end
