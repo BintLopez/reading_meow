@@ -18,10 +18,16 @@ class BookRequest < ApplicationRecord
   LIVE_STATUSES = STATUSES.except(:returned, :canceled).values.freeze
 
   URGENCY_TO_DAYS = {
-	  asap: 2,
-	  regular: 5,
-	  low: 10
+    asap: 2,
+    regular: 5,
+    low: 10
   }
+
+  scope :outstanding_scope, ->{ where.not(delivered_at: nil, accepted_at: nil).where(status: STATUSES[:delivered], picked_up_at: nil) }
+
+  def self.outstanding_class
+    where.not(delivered_at: nil, accepted_at: nil).where(status: 'incomplete', picked_up_at: nil)
+  end
 
   # Overwriting the reqeust_data getter and setter
   # to enforce a json data type for this column.
