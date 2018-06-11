@@ -2,7 +2,7 @@ require 'json'
 
 class BookRequest < ApplicationRecord
 	belongs_to :cat
-	belongs_to :cat_reading_wrangler, optional: true
+	belongs_to :cat_reading_wrangler
 
   STATUSES = {
     initiated:   'initiated',
